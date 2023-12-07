@@ -331,6 +331,19 @@
             justify-content: start;
             align-items: center;
         }
+
+        .error-span {
+            color: crimson;
+            font-size: .8rem;
+            background-color: rgba(253, 253, 253, 0.3);
+
+        }
+
+        .li-error {
+            list-style: disclosure-closed;
+            color: antiquewhite;
+            direction: rtl;
+        }
     </style>
     <title>Login</title>
 </head>
@@ -346,12 +359,17 @@
 
         const loginBtn = document.getElementById('login');
         const signupBtn = document.getElementById('signup');
+        const singupSection = document.getElementById('singup-section');
+        const loginSection = document.getElementById('login-section');
+        const login_errors = document.getElementById('login-errors');
+        const singup_errors = document.getElementById('singup-errors');
+        const error_msg = document.getElementById('error_msg');
+        //to determine user was going to login or singup
+        const name_input = document.getElementById('name');
+        const email_input = document.getElementById('email');
 
-       
+
         loginBtn.classList.add('slide-up');
-               
-
-        
         loginBtn.addEventListener('click', (e) => {
             let parent = e.target.parentNode.parentNode;
             Array.from(e.target.parentNode.parentNode.classList).find((element) => {
@@ -362,6 +380,8 @@
                     parent.classList.remove('slide-up')
                 }
             });
+            login_errors.innerHTML = "";
+            console.log('inside btn login')
         });
 
         signupBtn.addEventListener('click', (e) => {
@@ -374,7 +394,44 @@
                     parent.classList.remove('slide-up')
                 }
             });
+
+            singup_errors.innerHTML = "";
+            console.log('inside btn ssingup')
         });
+
+        //to redirect to currect form 
+        // window.onload = function() {
+        if (name_input.value && email_input.value) {
+            //sisngup should be active
+            if (!loginSection.classList.contains('slide-up')) {
+                loginBtn.click()
+                console.log('it should be sing up form')
+            }
+
+            // loginBtn.click();
+
+        } else if (!name_input.value && email_input.value) {
+            //login should be active
+
+            if (!singupSection.classList.contains('slide-up')) {
+                signupBtn.click()
+                console.log('it should be login form')
+            }
+
+        }
+
+
+
+
+        if (singupSection.classList.contains('slide-up')) {
+            //hide singup errors
+            singup_errors.innerHTML = "";
+        };
+        if (loginSection.classList.contains('slide-up')) {
+
+            //hide login errors
+            login_errors.innerHTML = "";
+        };
     </script>
 </body>
 
